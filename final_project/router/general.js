@@ -3,6 +3,46 @@ let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
+const axios = require('axios');
+
+//axios.get('http://localhost:5000/')
+//   .then(response => {
+//       console.log("Book list: ", response.data);
+//   })
+//    .catch(error => {
+//       console.error("Error getting the books: ", error.message);
+//   })
+
+const isbn = 3;
+
+//axios.get(`http://localhost:5000/isbn/${isbn}`)
+//    .then(response => {
+//        console.log("Book details:", response.data);
+//    })
+//    .catch(error => {
+//        console.error("Error getting the book:", error.message);
+//    });
+
+//const author = 'Jane Austen'; 
+
+//axios.get(`http://localhost:5000/author/${encodeURIComponent(author)}`)
+//  .then(response => {
+//    console.log("Author's books:", response.data);
+//  })
+//  .catch(error => {
+//    console.error("Error getting author's books:", error.message);
+//  });
+
+async function getBookByTitle(title) {
+    try {
+      const response = await axios.get(`http://localhost:5000/title/${encodeURIComponent(title)}`);
+      console.log("Book found:\n", JSON.stringify(response.data, null, 2));
+    } catch (error) {
+      console.error("Book not found: ", error.message);
+    }
+  }
+  
+getBookByTitle("Pride and Prejudice");
 
 // Check if a user with the given username already exists
 const doesExist = (username) => {
